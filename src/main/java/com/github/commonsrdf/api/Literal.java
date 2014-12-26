@@ -13,8 +13,6 @@
  */
 package com.github.commonsrdf.api;
 
-import java.util.Optional;
-
 /**
  * An RDF-1.1 Literal, as defined by <a href=
  * "http://www.w3.org/TR/rdf11-concepts/#section-Graph-Literal" >RDF-1.1
@@ -54,16 +52,16 @@ public interface Literal extends RDFTerm {
      * If the datatype IRI is not <a
      * href="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
      * >http://www.w3.org/1999/02/22-rdf-syntax-ns#langString</a>, this method
-     * must return {@link Optional#empty()}.
+     * must return <code>null</code>.
      *
-     * @return The {@link Optional} language tag for this literal. If
-     * {@link Optional#isPresent()} returns true, the value returned by
-     * {@link Optional#get()} must be a non-empty string conforming to
+     * @return The language tag for this literal. If
+     * the tag is not <code>null</code>, it 
+     * must be a non-empty string conforming to
      * BCP47.
      * @see <a
      * href="http://www.w3.org/TR/rdf11-concepts/#dfn-language-tag">RDF-1.1
      * Literal language tag</a>
      */
-    Optional<String> getLanguageTag();
+    String getLanguageTag();
 
 }
