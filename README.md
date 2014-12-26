@@ -16,7 +16,7 @@ A draft diagram of the interfaces which may be included in Commons RDF are:
 
 ## Building
 
-Building has been tested with [Apache Maven 3.2](http://maven.apache.org/download.cgi) and [Java JDK 8])(http://www.oracle.com/technetwork/java/javase/downloads/).
+Building has been tested with [Apache Maven 3.2](http://maven.apache.org/download.cgi) and [Java JDK 8])(http://www.oracle.com/technetwork/java/javase/downloads/), but should also work with Java 6 and Java 7.
 
     stain@biggie-mint ~/src/commons-rdf $ mvn clean install
     [INFO] Scanning for projects...
@@ -29,10 +29,6 @@ Building has been tested with [Apache Maven 3.2](http://maven.apache.org/downloa
     [INFO] Installing /home/stain/src/commons-rdf/target/api-0.0.3-SNAPSHOT.jar to /home/stain/.m2/repository/com/github/commons-rdf/api/0.0.3-SNAPSHOT/api-0.0.3-SNAPSHOT.jar
     [INFO] ------------------------------------------------------------------------
     [INFO] BUILD SUCCESS
-    
-To build with Java 1.6/1.7 compatibility, use the Maven profile `-Pjava6`:
-
-    stain@biggie-mint ~/src/commons-rdf $ mvn clean install -Pjava6
 
 
 ## Contributors
@@ -41,6 +37,7 @@ To build with Java 1.6/1.7 compatibility, use the Maven profile `-Pjava6`:
 * Andy Seaborne ([Apache Jena](http://jena.apache.org))
 * Peter Ansell ([OpenRDF Sesame](http://openrdf.callimachus.net))
 * Alexandre Bertails ([W3C](http://www.w3.org))
+* [Stian Soiland-Reyes](http://orcid.org/0000-0001-9842-9718) ([Apache Taverna](http://taverna.incubator.apache.org/))
 
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute. In short - raise a Github pull request.
