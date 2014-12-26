@@ -13,7 +13,7 @@
  */
 package com.github.commonsrdf.api;
 
-import java.util.stream.Stream;
+import java.util.Iterator;
 
 /**
  * An <a href="http://www.w3.org/TR/rdf11-concepts/#section-rdf-graph"> RDF 1.1
@@ -101,23 +101,23 @@ public interface Graph {
     /**
      * Get all triples contained by the graph.<br>
      *
-     * The behaviour of the Stream is not specified if add, remove, or clear,
+     * The behaviour of the Iterator is not specified if add, remove, or clear,
      * are called on the Stream before it terminates.<br>
      *
-     * Implementations may throw ConcurrentModificationException from Stream
+     * Implementations may throw ConcurrentModificationException from Iterator
      * methods if they detect a conflict while the Stream is active.
      *
      * @return A {@link Stream} over all of the triples in the graph.
      */
-    Stream<? extends Triple> getTriples();
+    Iterator<? extends Triple> getTriples();
 
     /**
      * Get all triples contained by the graph matched with the pattern.
      *
-     * The behaviour of the Stream is not specified if add, remove, or clear,
+     * The behaviour of the Iterator is not specified if add, remove, or clear,
      * are called on the Stream before it terminates.<br>
      *
-     * Implementations may throw ConcurrentModificationException from Stream
+     * Implementations may throw ConcurrentModificationException from Iterator
      * methods if they detect a conflict while the Stream is active.
      *
      * @param subject
@@ -128,6 +128,6 @@ public interface Graph {
      *            The triple object (null is a wildcard)
      * @return A {@link Stream} over the matched triples.
      */
-    Stream<? extends Triple> getTriples(BlankNodeOrIRI subject, IRI predicate, RDFTerm object);
+    Iterator<? extends Triple> getTriples(BlankNodeOrIRI subject, IRI predicate, RDFTerm object);
 
 }
