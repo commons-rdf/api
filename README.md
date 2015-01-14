@@ -16,9 +16,9 @@ A draft diagram of the interfaces which may be included in Commons RDF are:
 
 ## Building
 
-Building has been tested with [Apache Maven 3.2](http://maven.apache.org/download.cgi) and [Java JDK 8])(http://www.oracle.com/technetwork/java/javase/downloads/).
+Building has been tested with [Apache Maven 3.2](http://maven.apache.org/download.cgi) and [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/).
 
-    stain@biggie-mint ~/src/commons-rdf $ mvn clean install
+    $ mvn clean install
     [INFO] Scanning for projects...
     [INFO] 
     [INFO] Using the builder org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder with a thread count of 1
@@ -29,19 +29,37 @@ Building has been tested with [Apache Maven 3.2](http://maven.apache.org/downloa
     [INFO] Installing /home/stain/src/commons-rdf/target/api-0.0.3-SNAPSHOT.jar to /home/stain/.m2/repository/com/github/commons-rdf/api/0.0.3-SNAPSHOT/api-0.0.3-SNAPSHOT.jar
     [INFO] ------------------------------------------------------------------------
     [INFO] BUILD SUCCESS
+
+To then use from your project, add to Maven (update `<version>` to match the Maven output):
+
+    <dependency>
+        <groupId>com.github.commons-rdf</groupId>
+        <artifactId>api</artifactId>
+        <version>0.0.3-SNAPSHOT</version>
+    </dependency>
     
-To build with Java 1.6/1.7 compatibility, use the Maven profile `-Pjava6`:
+    
+### Java 6 compatibility
 
-    stain@biggie-mint ~/src/commons-rdf $ mvn clean install -Pjava6
+This API is targetting *Java 8*, as Java 7 is scheduled [EOL at April 2015](http://www.oracle.com/technetwork/java/javase/eol-135779.html).
 
+For convenience, a patched version for Java 6 and 7 is however available.
+
+To build with Java 1.6/1.7 compatibility, use the `java6` Maven profile:
+
+    $ mvn clean install -Pjava6
+
+To then depend on the Java 6 version in your Maven project, you need to use a special `classifier` to the dependency:
+
+    <classifier>java6</classifier>
+
+Note that the Java 6 version depends on the [Guava libraries](https://code.google.com/p/guava-libraries/) for providing the missing features.
 
 ## Contributors
 
 * Sergio Fernández ([Apache Marmotta](http://marmotta.apache.org))
 * Andy Seaborne ([Apache Jena](http://jena.apache.org))
 * Peter Ansell ([OpenRDF Sesame](http://openrdf.callimachus.net))
-* Alexandre Bertails ([W3C](http://www.w3.org))
-
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute. In short - raise a Github pull request.
 
