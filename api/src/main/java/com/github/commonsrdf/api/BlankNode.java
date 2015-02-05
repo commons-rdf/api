@@ -71,10 +71,8 @@ public interface BlankNode extends BlankNodeOrIRI {
 	 * with different <code>identifier()</code> values are not 
 	 * necessarily different.
 	 * <p>
-	 * It is not a requirement for the identifier to be a part of the
-	 * {@link #ntriplesString()}, except that two BlankNode instances with the
-	 * same <code>identifier()</code>, and same local scope SHOULD have the same
-	 * {@link #ntriplesString()}.
+	 * It is not a requirement for this UUID <code>identifier</code> to form part of the
+	 * {@link #ntriplesString()}. 
 	 *
 	 * @see #equals(Object)
 	 *
