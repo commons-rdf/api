@@ -81,14 +81,23 @@ public interface BlankNode extends BlankNodeOrIRI {
 	UUID identifier();
 
 	/**
-	 * Check it this BlankNode is equal to another BlankNode. 
+	 * Check it this BlankNode is equal to another BlankNode.
 	 * <p>
 	 * Two BlankNodes MUST be equal if they have the same {@link #identifier()},
 	 * and MAY be equal if their {@link #identifier()} differ.
 	 * <p>
 	 * Implementations MUST also override {@link #hashCode()} so that two equal
 	 * <code>BlankNode</code> instances produce the same hash code.
-	 * </p>
+	 * <p>
+	 * Note: 
+	 * <blockquote
+	 *   cite="http://www.w3.org/TR/rdf11-concepts/#dfn-blank-node">
+	 * Implementations that handle <a
+	 * href="http://www.w3.org/TR/rdf11-concepts/#dfn-blank-node">blank node
+	 * identifiers</a> in concrete syntaxes need to be careful not to create the
+	 * same blank node from multiple occurrences of the same blank node
+	 * identifier except in situations where this is supported by the syntax.
+	 * </blockquote>
 	 * 
 	 * @see #identifier()
 	 * @see Object#equals(Object)
