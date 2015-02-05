@@ -44,7 +44,7 @@ public abstract class AbstractBlankNodeTest {
 
 	/**
 	 * Test method for
-	 * {@link com.github.commonsrdf.api.BlankNode#internalIdentifier()}.
+	 * {@link com.github.commonsrdf.api.BlankNode#identifier()}.
 	 */
 	@Test
 	public final void testInternalIdentifier() {
@@ -55,7 +55,7 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public String internalIdentifier() {
+			public String identifier() {
 				return null;
 			}
 		};
@@ -66,30 +66,30 @@ public abstract class AbstractBlankNodeTest {
 		BlankNode testManual4 = getBlankNode("4");
 
 		// Test against our fake stub
-		assertNotEquals(testNull.internalIdentifier(),
-				testAutomatic1.internalIdentifier());
-		assertNotEquals(testAutomatic1.internalIdentifier(),
-				testNull.internalIdentifier());
-		assertNotEquals(testNull.internalIdentifier(),
-				testManual3a.internalIdentifier());
-		assertNotEquals(testManual3a.internalIdentifier(),
-				testNull.internalIdentifier());
+		assertNotEquals(testNull.identifier(),
+				testAutomatic1.identifier());
+		assertNotEquals(testAutomatic1.identifier(),
+				testNull.identifier());
+		assertNotEquals(testNull.identifier(),
+				testManual3a.identifier());
+		assertNotEquals(testManual3a.identifier(),
+				testNull.identifier());
 
 		// Test the two imported instances against each other
-		assertEquals(testAutomatic1.internalIdentifier(),
-				testAutomatic1.internalIdentifier());
-		assertEquals(testAutomatic2.internalIdentifier(),
-				testAutomatic2.internalIdentifier());
-		assertNotEquals(testAutomatic1.internalIdentifier(),
-				testAutomatic2.internalIdentifier());
-		assertNotEquals(testAutomatic2.internalIdentifier(),
-				testAutomatic1.internalIdentifier());
-		assertNotEquals(testAutomatic1.internalIdentifier(),
-				testManual3a.internalIdentifier());
-		assertEquals(testManual3b.internalIdentifier(),
-				testManual3a.internalIdentifier());
-		assertNotEquals(testManual3a.internalIdentifier(),
-				testManual4.internalIdentifier());
+		assertEquals(testAutomatic1.identifier(),
+				testAutomatic1.identifier());
+		assertEquals(testAutomatic2.identifier(),
+				testAutomatic2.identifier());
+		assertNotEquals(testAutomatic1.identifier(),
+				testAutomatic2.identifier());
+		assertNotEquals(testAutomatic2.identifier(),
+				testAutomatic1.identifier());
+		assertNotEquals(testAutomatic1.identifier(),
+				testManual3a.identifier());
+		assertEquals(testManual3b.identifier(),
+				testManual3a.identifier());
+		assertNotEquals(testManual3a.identifier(),
+				testManual4.identifier());
 	}
 
 	/**
@@ -105,7 +105,7 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public String internalIdentifier() {
+			public String identifier() {
 				return null;
 			}
 		};
@@ -143,7 +143,7 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public String internalIdentifier() {
+			public String identifier() {
 				return null;
 			}
 		};
@@ -182,7 +182,7 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public String internalIdentifier() {
+			public String identifier() {
 				return null;
 			}
 		};

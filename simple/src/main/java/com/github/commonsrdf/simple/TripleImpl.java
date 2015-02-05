@@ -78,7 +78,7 @@ class TripleImpl implements Triple {
 		if (object instanceof BlankNode) {
 			BlankNode blankNode = (BlankNode) object;
 			return new BlankNodeImpl(Objects.requireNonNull(localScope),
-					blankNode.internalIdentifier());
+					blankNode.identifier());
 		} else if (object instanceof IRI && !(object instanceof IRIImpl)) {
 			IRI iri = (IRI) object;
 			return new IRIImpl(iri.getIRIString());

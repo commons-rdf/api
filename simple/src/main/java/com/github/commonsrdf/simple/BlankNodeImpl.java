@@ -48,7 +48,7 @@ class BlankNodeImpl implements BlankNode {
 	}
 
 	@Override
-	public String internalIdentifier() {
+	public String identifier() {
 		return id;
 	}
 

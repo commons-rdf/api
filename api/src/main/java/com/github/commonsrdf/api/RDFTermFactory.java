@@ -41,7 +41,7 @@ public interface RDFTermFactory {
 	 * <p>
 	 * Two BlankNodes created with this method MUST NOT be equal.
 	 * <p>
-	 * If supported, the {@link BlankNode#internalIdentifier()} of the returned
+	 * If supported, the {@link BlankNode#identifier()} of the returned
 	 * blank node MUST be an auto-generated value.
 	 * 
 	 * @return A new BlankNode
@@ -60,7 +60,7 @@ public interface RDFTermFactory {
 	 * equal if they are in the same local scope (e.g. in the same Graph). See
 	 * the equals contract for {@link BlankNode} for more information.
 	 * <p>
-	 * If supported, the {@link BlankNode#internalIdentifier()} of the returned
+	 * If supported, the {@link BlankNode#identifier()} of the returned
 	 * blank node MAY be equal to the provided identifier.
 	 * 
 	 * @param identifier
