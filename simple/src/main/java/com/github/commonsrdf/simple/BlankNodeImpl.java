@@ -13,12 +13,10 @@
  */
 package com.github.commonsrdf.simple;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
 
 import com.github.commonsrdf.api.BlankNode;
 import com.github.commonsrdf.api.Graph;
@@ -29,12 +27,11 @@ import com.github.commonsrdf.api.Graph;
  */
 class BlankNodeImpl implements BlankNode {
 
-	private static AtomicLong bnodeCounter = new AtomicLong();
 	private final String id;
 	private final Optional<Graph> localScope;
 
 	public BlankNodeImpl() {
-		this(Optional.empty(), "b:" + bnodeCounter.incrementAndGet());
+		this(Optional.empty(), UUID.randomUUID().toString());
 	}
 
 	public BlankNodeImpl(Optional<Graph> localScope, String id) {
