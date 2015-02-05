@@ -59,7 +59,7 @@ public interface BlankNode extends BlankNodeOrIRI {
 	 * "http://www.w3.org/TR/rdf11-concepts/#dfn-blank-node-identifier"
 	 * >identifier</a> for the blank node as an {@link UUID}. 
 	 * This is not a serialization/syntax label.
-	 * It should be uniquely identifying the blank node, but does not
+	 * It uniquely identify the blank node, but does not
 	 * come with any guarantees for persistence or resolution.
 	 * <p>
 	 * Two objects of the type <code>BlankNode</code> with the same
@@ -71,8 +71,8 @@ public interface BlankNode extends BlankNodeOrIRI {
 	 * with different <code>identifier()</code> values are not 
 	 * necessarily different.
 	 * <p>
-	 * It is not a requirement for this UUID <code>identifier</code> to form part of the
-	 * {@link #ntriplesString()}. 
+	 * It is not a requirement for this UUID <code>identifier</code> 
+	 * to form part of the {@link #ntriplesString()}. 
 	 *
 	 * @see #equals(Object)
 	 *
