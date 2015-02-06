@@ -66,7 +66,7 @@ public interface RDFTermFactory {
 	 * skolem IRI</a>.
 	 * <p> 
 	 * The identifier is <strong>not</strong> a serialization/syntax label, 
-	 * e.g. not of the type <del><code>_:b2</code></del>.
+	 * e.g. not <del><code>_:b2</code></del>.
 	 * <p>
 	 * The {@link BlankNode#identifier()} of the returned
 	 * blank node SHOULD be equal to the provided identifier.

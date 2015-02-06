@@ -60,7 +60,7 @@ public interface BlankNode extends BlankNodeOrIRI {
 	 * >identifier</a> for the blank node as an {@link UUID}. 
 	 * <p>
 	 * This is <strong>not</strong> a serialization/syntax label, 
-	 * e.g. not of the type <del><code>_:b2</code></del>.
+	 * e.g. not <del><code>_:b2</code></del>.
 	 * <p>
 	 * The returned string MUST uniquely identify the 
 	 * only this blank node, but but does not
@@ -81,7 +81,7 @@ public interface BlankNode extends BlankNodeOrIRI {
 	 * <a href="http://www.w3.org/TR/rdf11-concepts/#section-skolemization">
 	 * skolem IRI</a>.
 	 * <p>
-	 * It is not a requirement for this <code>identifier</code> 
+	 * It is NOT RECOMMENDED for this <code>identifier</code> 
 	 * to form part of the {@link #ntriplesString()}. 
 	 *
 	 * @see UUID#toString()
