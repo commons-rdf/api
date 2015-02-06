@@ -13,6 +13,8 @@
  */
 package com.github.commonsrdf.simple;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -24,24 +26,40 @@ import com.github.commonsrdf.api.BlankNode;
  */
 class BlankNodeImpl implements BlankNode {
 
-	private final UUID id;
+	private static UUID BLANK_NODE_NS = 
+			UUID.fromString("7482d5ca-5e77-4dfa-92b5-85348e26061c");
+	
+	private final String id;
 
 	public BlankNodeImpl() {
-		this(UUID.randomUUID());
+		this(UUID.randomUUID().toString());
 	}
 
-	public BlankNodeImpl(UUID id) {
+	public BlankNodeImpl(String id) {
 		this.id = Objects.requireNonNull(id);
 	}
 
 	@Override
-	public UUID identifier() {
+	public String identifier() {
 		return id;
+	}
+
+	private static UUID nameUUID(UUID ns, String name) { 
+		byte[] nameBytes = name.getBytes(StandardCharsets.UTF_8); 
+		ByteBuffer buffer = ByteBuffer.allocate(nameBytes.length + 2*Long.BYTES);
+		buffer.putLong(ns.getMostSignificantBits());
+		buffer.putLong(ns.getLeastSignificantBits());
+		buffer.put(nameBytes);
+		return UUID.nameUUIDFromBytes(buffer.array());
 	}
 
 	@Override
 	public String ntriplesString() {
-		return "_:" + identifier();
+		try {
+			return "_:" + UUID.fromString(id); 
+		} catch (IllegalArgumentException ex) {
+			return "_:" + nameUUID(BLANK_NODE_NS, identifier());
+		}
 	}
 
 	@Override

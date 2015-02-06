@@ -55,10 +55,21 @@ public interface RDFTermFactory {
 	}
 
 	/**
-	 * Create a blank node for the given UUID identifier.
+	 * Create a blank node for the given identifier.
 	 * <p>
-	 * If supported, the {@link BlankNode#identifier()} of the returned
-	 * blank node MUST be equal to the provided identifier.
+	 * The identifier MUST be globally unique. It is RECOMMENDED 
+	 * for the identifier to be a UUID string, e.g. 
+	 * <code>9098f7bd-58fc-32d2-91a2-db6a19aaa46f</code>.
+	 * <p>
+	 * If the identifier is a IRI, it SHOULD be a  
+	 * <a href="http://www.w3.org/TR/rdf11-concepts/#section-skolemization">
+	 * skolem IRI</a>.
+	 * <p> 
+	 * The identifier is <strong>not</strong> a serialization/syntax label, 
+	 * e.g. not of the type <del><code>_:b2</code></del>.
+	 * <p>
+	 * The {@link BlankNode#identifier()} of the returned
+	 * blank node SHOULD be equal to the provided identifier.
 	 * <p>
 	 * Two BlankNodes created with the same identifier using this method 
 	 * MUST be equal.
@@ -68,15 +79,15 @@ public interface RDFTermFactory {
 	 * @see BlankNode#equals(Object)
 	 * 
 	 * @param identifier
-	 *            A UUID that uniquely identify the blank node
+	 *            A string that uniquely identify the blank node
 	 * @return A BlankNode for the given identifier
 	 * @throws UnsupportedOperationException
 	 *             If the operation is not supported.
 	 */
-	default BlankNode createBlankNode(UUID identifier)
+	default BlankNode createBlankNode(String identifier)
 			throws UnsupportedOperationException {
 		throw new UnsupportedOperationException(
-				"createBlankNode(UUID) not supported");
+				"createBlankNode(String) not supported");
 	}
 
 	/**

@@ -13,9 +13,8 @@
  */
 package com.github.commonsrdf.api;
 
-import static org.junit.Assert.*;
-
-import java.util.UUID;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
@@ -42,7 +41,7 @@ public abstract class AbstractBlankNodeTest {
 	 *            node that is returned.
 	 * @return A new blank node based on the
 	 */
-	protected abstract BlankNode getBlankNode(UUID identifier);
+	protected abstract BlankNode getBlankNode(String identifier);
 
 	/**
 	 * Test method for
@@ -57,15 +56,15 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public UUID identifier() {
+			public String identifier() {
 				return null;
 			}
 		};
 		BlankNode testAutomatic1 = getBlankNode();
 		BlankNode testAutomatic2 = getBlankNode();
 		
-		UUID uuid3 = UUID.fromString("b6415793-b706-4cbe-b406-14bad9c8e66f");
-		UUID uuid4 = UUID.fromString("36638869-2d18-4499-8be4-5b7434f9da45");		
+		String uuid3 = ("b6415793-b706-4cbe-b406-14bad9c8e66f");
+		String uuid4 = ("36638869-2d18-4499-8be4-5b7434f9da45");		
 		
 		BlankNode testManual3a = getBlankNode(uuid3);
 		BlankNode testManual3b = getBlankNode(uuid3);
@@ -111,14 +110,14 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public UUID identifier() {
+			public String identifier() {
 				return null;
 			}
 		};
 		BlankNode testAutomatic1 = getBlankNode();
 		BlankNode testAutomatic2 = getBlankNode();
-		UUID uuid3 = UUID.fromString("b6415793-b706-4cbe-b406-14bad9c8e66f");
-		UUID uuid4 = UUID.fromString("36638869-2d18-4499-8be4-5b7434f9da45");		
+		String uuid3 = "b6415793-b706-4cbe-b406-14bad9c8e66f";
+		String uuid4 = "36638869-2d18-4499-8be4-5b7434f9da45";		
 		BlankNode testManual3a = getBlankNode(uuid3);
 		BlankNode testManual3b = getBlankNode(uuid3);
 		BlankNode testManual4 = getBlankNode(uuid4);
@@ -151,14 +150,14 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public UUID identifier() {
+			public String identifier() {
 				return null;
 			}
 		};
 		BlankNode testAutomatic1 = getBlankNode();
 		BlankNode testAutomatic2 = getBlankNode();
-		UUID uuid3 = UUID.fromString("b6415793-b706-4cbe-b406-14bad9c8e66f");
-		UUID uuid4 = UUID.fromString("36638869-2d18-4499-8be4-5b7434f9da45");		
+		String uuid3 = "b6415793-b706-4cbe-b406-14bad9c8e66f";
+		String uuid4 = "36638869-2d18-4499-8be4-5b7434f9da45";		
 		BlankNode testManual3a = getBlankNode(uuid3);
 		BlankNode testManual3b = getBlankNode(uuid3);
 		BlankNode testManual4 = getBlankNode(uuid4);
@@ -192,14 +191,14 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public UUID identifier() {
+			public String identifier() {
 				return null;
 			}
 		};
 		BlankNode testAutomatic1 = getBlankNode();
 		BlankNode testAutomatic2 = getBlankNode();
-		UUID uuid3 = UUID.fromString("b6415793-b706-4cbe-b406-14bad9c8e66f");
-		UUID uuid4 = UUID.fromString("36638869-2d18-4499-8be4-5b7434f9da45");		
+		String uuid3 = "b6415793-b706-4cbe-b406-14bad9c8e66f";
+		String uuid4 = "36638869-2d18-4499-8be4-5b7434f9da45";		
 		BlankNode testManual3a = getBlankNode(uuid3);
 		BlankNode testManual3b = getBlankNode(uuid3);
 		BlankNode testManual4 = getBlankNode(uuid4);

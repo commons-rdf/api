@@ -58,8 +58,12 @@ public interface BlankNode extends BlankNodeOrIRI {
 	 * Return a <a href=
 	 * "http://www.w3.org/TR/rdf11-concepts/#dfn-blank-node-identifier"
 	 * >identifier</a> for the blank node as an {@link UUID}. 
-	 * This is not a serialization/syntax label.
-	 * It uniquely identify the blank node, but does not
+	 * <p>
+	 * This is <strong>not</strong> a serialization/syntax label, 
+	 * e.g. not of the type <del><code>_:b2</code></del>.
+	 * <p>
+	 * The returned string MUST uniquely identify the 
+	 * only this blank node, but but does not
 	 * come with any guarantees for persistence or resolution.
 	 * <p>
 	 * Two objects of the type <code>BlankNode</code> with the same
@@ -71,14 +75,21 @@ public interface BlankNode extends BlankNodeOrIRI {
 	 * with different <code>identifier()</code> values are not 
 	 * necessarily different.
 	 * <p>
-	 * It is not a requirement for this UUID <code>identifier</code> 
+	 * The identifier MUST be globally unique. It is RECOMMENDED 
+	 * for the identifier to be a UUID string.
+	 * If the identifier is a IRI, it is SHOULD be a  
+	 * <a href="http://www.w3.org/TR/rdf11-concepts/#section-skolemization">
+	 * skolem IRI</a>.
+	 * <p>
+	 * It is not a requirement for this <code>identifier</code> 
 	 * to form part of the {@link #ntriplesString()}. 
 	 *
+	 * @see UUID#toString()
 	 * @see #equals(Object)
 	 *
 	 * @return An unique identifier for the {@link BlankNode}.
 	 */
-	UUID identifier();
+	 String identifier();
 
 	/**
 	 * Check it this BlankNode is equal to another BlankNode.

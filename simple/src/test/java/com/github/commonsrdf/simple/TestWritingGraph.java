@@ -16,8 +16,6 @@ package com.github.commonsrdf.simple;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import org.junit.BeforeClass;
@@ -39,7 +37,7 @@ public class TestWritingGraph {
 
 	private static GraphImpl graph;
 
-	private static UUID subj = UUID.fromString("07d6fcb3-cac2-418b-84dd-c437e83dda5a");
+	private static String subj = "07d6fcb3-cac2-418b-84dd-c437e83dda5a";
 	
 	@BeforeClass
 	public static void createGraph() throws Exception {

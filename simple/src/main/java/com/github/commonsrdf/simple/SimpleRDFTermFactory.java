@@ -40,7 +40,7 @@ public class SimpleRDFTermFactory implements RDFTermFactory {
 	}
 
 	@Override
-	public BlankNode createBlankNode(UUID identifier) {
+	public BlankNode createBlankNode(String identifier) {
 		return new BlankNodeImpl(identifier);
 	}
 

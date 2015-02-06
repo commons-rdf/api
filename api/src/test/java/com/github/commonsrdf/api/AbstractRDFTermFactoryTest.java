@@ -18,8 +18,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
-import java.util.UUID;
-
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +55,7 @@ public abstract class AbstractRDFTermFactoryTest {
 
 	@Test
 	public void createBlankNodeIdentifier() throws Exception {
-		UUID uuid = UUID.fromString("d85f1b8e-4f87-4847-a58b-283e3834e5c8");
+		String uuid = "d85f1b8e-4f87-4847-a58b-283e3834e5c8";
 		BlankNode bnode;
 		try {
 			bnode = factory.createBlankNode(uuid);
@@ -70,8 +68,8 @@ public abstract class AbstractRDFTermFactoryTest {
 
 	@Test
 	public void createBlankNodeIdentifierTwice() throws Exception {
-		UUID uuid = UUID.fromString("959c0aaa-fcee-49d4-b62b-a6c496e81398");
-		UUID uuid2 = UUID.fromString("44ca1bc5-1ec2-4d3d-ae96-5f667e874721");
+		String uuid = "959c0aaa-fcee-49d4-b62b-a6c496e81398";
+		String uuid2 = "44ca1bc5-1ec2-4d3d-ae96-5f667e874721";
 
 		BlankNode bnode1, bnode2, bnode3;
 		try {
