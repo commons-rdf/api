@@ -18,6 +18,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
+import java.util.UUID;
+
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,39 +54,30 @@ public abstract class AbstractRDFTermFactoryTest {
 				bnode.identifier(), bnode2.identifier());
 	}
 
-	@Test
-	public void createBlankNodeIdentifierEmpty() throws Exception {
-		try {
-			factory.createBlankNode("");
-		} catch (UnsupportedOperationException e) {
-			Assume.assumeNoException(e);
-		} catch (IllegalArgumentException e) {
-			// Expected exception
-		}
-	}
 
 	@Test
 	public void createBlankNodeIdentifier() throws Exception {
+		UUID uuid = UUID.fromString("d85f1b8e-4f87-4847-a58b-283e3834e5c8");
 		BlankNode bnode;
 		try {
-			bnode = factory.createBlankNode("example1");
+			bnode = factory.createBlankNode(uuid);
 		} catch (UnsupportedOperationException ex) {
 			Assume.assumeNoException(ex);
 			return;
 		}
-		assertEquals("example1", bnode.identifier());
-		// .. but we can't assume the internal identifier leaks into
-		// ntriplesString
-		// assertEquals("_:example1", bnode.ntriplesString());
+		assertEquals(uuid, bnode.identifier());
 	}
 
 	@Test
 	public void createBlankNodeIdentifierTwice() throws Exception {
+		UUID uuid = UUID.fromString("959c0aaa-fcee-49d4-b62b-a6c496e81398");
+		UUID uuid2 = UUID.fromString("44ca1bc5-1ec2-4d3d-ae96-5f667e874721");
+
 		BlankNode bnode1, bnode2, bnode3;
 		try {
-			bnode1 = factory.createBlankNode("example1");
-			bnode2 = factory.createBlankNode("example1");
-			bnode3 = factory.createBlankNode("differ");
+			bnode1 = factory.createBlankNode(uuid);
+			bnode2 = factory.createBlankNode(uuid);
+			bnode3 = factory.createBlankNode(uuid2);
 		} catch (UnsupportedOperationException ex) {
 			Assume.assumeNoException(ex);
 			return;
@@ -280,9 +273,9 @@ public abstract class AbstractRDFTermFactoryTest {
 		BlankNode object;
 		Triple triple;
 		try {
-			subject = factory.createBlankNode("b1");
+			subject = factory.createBlankNode();
 			predicate = factory.createIRI("http://example.com/pred");
-			object = factory.createBlankNode("b2");
+			object = factory.createBlankNode();
 			triple = factory.createTriple(subject, predicate, object);
 		} catch (UnsupportedOperationException ex) {
 			Assume.assumeNoException(ex);
@@ -303,7 +296,7 @@ public abstract class AbstractRDFTermFactoryTest {
 		IRI object;
 		Triple triple;
 		try {
-			subject = factory.createBlankNode("b1");
+			subject = factory.createBlankNode();
 			predicate = factory.createIRI("http://example.com/pred");
 			object = factory.createIRI("http://example.com/obj");
 			triple = factory.createTriple(subject, predicate, object);
@@ -347,28 +340,6 @@ public abstract class AbstractRDFTermFactoryTest {
 		factory = createFactory();
 	}
 
-	@Test
-	public void possiblyInvalidBlankNode() throws Exception {
-		BlankNode withColon;
-		try {
-			withColon = factory.createBlankNode("with:colon");
-		} catch (UnsupportedOperationException ex) {
-			Assume.assumeNoException("createBlankNode(String) not supported",
-					ex);
-			return;
-		} catch (IllegalArgumentException ex) {
-			// Good!
-			return;
-		}
-		// Factory allows :colon, which is OK as long as it's not causing an
-		// invalid ntriplesString
-		assertFalse(withColon.ntriplesString().contains("with:colon"));
-
-		// and creating it twice gets the same ntriplesString
-		assertEquals(withColon.ntriplesString(),
-				factory.createBlankNode("with:colon").ntriplesString());
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidIRI() throws Exception {
 		try {
@@ -392,9 +363,9 @@ public abstract class AbstractRDFTermFactoryTest {
 
 	@Test(expected = Exception.class)
 	public void invalidTriplePredicate() {
-		BlankNode subject = factory.createBlankNode("b1");
-		BlankNode predicate = factory.createBlankNode("b2");
-		BlankNode object = factory.createBlankNode("b3");
+		BlankNode subject = factory.createBlankNode();
+		BlankNode predicate = factory.createBlankNode();
+		BlankNode object = factory.createBlankNode();
 		factory.createTriple(subject, (IRI) predicate, object);
 	}
 
