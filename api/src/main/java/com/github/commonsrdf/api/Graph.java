@@ -21,6 +21,15 @@ import java.util.stream.Stream;
  * Graph</a>, a set of RDF triples, as defined by <a
  * href="http://www.w3.org/TR/rdf11-concepts/" >RDF-1.1 Concepts and Abstract
  * Syntax</a>, a W3C Recommendation published on 25 February 2014.
+ * <p>
+ * An instance of a Graph implementation is considered a <em>local scope</em>
+ * for the purpose of RDFTerm equivalence.
+ * <p>
+ * Implementations SHOULD support method calls with RDFTerm instances that are
+ * not in the same local scope or which were not created by the same
+ * implementation, and MAY convert them to corresponding instances of its own
+ * RDFTerm implementations.
+ * 
  */
 public interface Graph extends AutoCloseable {
 
