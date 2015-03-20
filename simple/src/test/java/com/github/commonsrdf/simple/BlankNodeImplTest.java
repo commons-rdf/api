@@ -13,7 +13,7 @@
  */
 package com.github.commonsrdf.simple;
 
-import java.util.Optional;
+import java.util.UUID;
 
 import com.github.commonsrdf.api.AbstractBlankNodeTest;
 import com.github.commonsrdf.api.BlankNode;
@@ -32,7 +32,7 @@ public class BlankNodeImplTest extends AbstractBlankNodeTest {
 
 	@Override
 	protected BlankNode getBlankNode(String identifier) {
-		return new BlankNodeImpl(Optional.empty(), identifier);
+		return new BlankNodeImpl(identifier);
 	}
 
 }

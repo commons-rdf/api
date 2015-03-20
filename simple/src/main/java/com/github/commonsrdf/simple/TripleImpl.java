@@ -14,11 +14,9 @@
 package com.github.commonsrdf.simple;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import com.github.commonsrdf.api.BlankNode;
 import com.github.commonsrdf.api.BlankNodeOrIRI;
-import com.github.commonsrdf.api.Graph;
 import com.github.commonsrdf.api.IRI;
 import com.github.commonsrdf.api.Literal;
 import com.github.commonsrdf.api.RDFTerm;
@@ -37,17 +35,16 @@ class TripleImpl implements Triple {
 	/**
 	 * Construct Triple from its constituent parts.
 	 * <p>
-	 * The parts may be copied to ensure they are in scope.
+	 * The parts may be copied if they are not from this implementation.
 	 * 
 	 * @param subject subject of triple
 	 * @param predicate predicate of triple
 	 * @param object object of triple
 	 */
 	public TripleImpl(BlankNodeOrIRI subject, IRI predicate, RDFTerm object) {
-		this.subject = (BlankNodeOrIRI) inScope(Optional.empty(),
-				Objects.requireNonNull(subject));
-		this.predicate = (IRI) inScope(null, Objects.requireNonNull(predicate));
-		this.object = inScope(Optional.empty(), Objects.requireNonNull(object));
+		this.subject = (BlankNodeOrIRI) cloneFromOtherImpl(Objects.requireNonNull(subject));
+		this.predicate = (IRI) cloneFromOtherImpl(Objects.requireNonNull(predicate));
+		this.object = cloneFromOtherImpl(Objects.requireNonNull(object));
 	}
 
 	/**
@@ -60,25 +57,24 @@ class TripleImpl implements Triple {
 	 * @param triple
 	 *            Triple to clone
 	 */
-	public TripleImpl(Optional<Graph> localScope, Triple triple) {
-		Objects.requireNonNull(localScope);
+	public TripleImpl(Triple triple) {
 		Objects.requireNonNull(triple);
 
-		this.subject = (BlankNodeOrIRI) inScope(localScope, triple.getSubject());
-		this.predicate = (IRI) inScope(localScope, triple.getPredicate());
-		this.object = inScope(localScope, triple.getObject());
+		this.subject = (BlankNodeOrIRI) cloneFromOtherImpl(triple.getSubject());
+		this.predicate = (IRI) cloneFromOtherImpl(triple.getPredicate());
+		this.object = cloneFromOtherImpl(triple.getObject());
 	}
 
-	private RDFTerm inScope(Optional<Graph> localScope, RDFTerm object) {
+	private RDFTerm cloneFromOtherImpl(RDFTerm object) {
 		if (!(object instanceof BlankNode) && !(object instanceof IRI)
 				& !(object instanceof Literal)) {
 			throw new IllegalArgumentException(
 					"RDFTerm must be BlankNode, IRI or Literal");
 		}
-		if (object instanceof BlankNode) {
+		if (object instanceof BlankNode && !(object instanceof BlankNodeImpl)) {
 			BlankNode blankNode = (BlankNode) object;
-			return new BlankNodeImpl(Objects.requireNonNull(localScope),
-					blankNode.internalIdentifier());
+			// Safe as the identifier() is unique across scopes
+			return new BlankNodeImpl(blankNode.identifier());
 		} else if (object instanceof IRI && !(object instanceof IRIImpl)) {
 			IRI iri = (IRI) object;
 			return new IRIImpl(iri.getIRIString());
@@ -89,10 +85,11 @@ class TripleImpl implements Triple {
 				return new LiteralImpl(literal.getLexicalForm(), literal
 						.getLanguageTag().get());
 			} else {
-				IRI dataType = (IRI) inScope(localScope, literal.getDatatype());
+				IRI dataType = (IRI) cloneFromOtherImpl(literal.getDatatype());
 				return new LiteralImpl(literal.getLexicalForm(), dataType);
 			}
 		} else {
+			// It must be one of ours.. safe to keep in multiple Triples
 			return object;
 		}
 	}

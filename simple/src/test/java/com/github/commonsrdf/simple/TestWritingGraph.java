@@ -16,7 +16,6 @@ package com.github.commonsrdf.simple;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.junit.BeforeClass;
@@ -38,10 +37,12 @@ public class TestWritingGraph {
 
 	private static GraphImpl graph;
 
+	private static String subj = "07d6fcb3-cac2-418b-84dd-c437e83dda5a";
+	
 	@BeforeClass
 	public static void createGraph() throws Exception {
 		graph = new GraphImpl();
-		BlankNode subject = new BlankNodeImpl(Optional.of(graph), "subj");
+		BlankNode subject = new BlankNodeImpl(subj);
 		IRI predicate = new IRIImpl("pred");
 		for (int i = 0; i < TRIPLES; i++) {
 			graph.add(subject, predicate, new LiteralImpl("Example " + i, "en"));
@@ -55,7 +56,7 @@ public class TestWritingGraph {
 	
 	@Test
 	public void countQuery() {
-		BlankNode subject = new BlankNodeImpl(Optional.of(graph), "subj");
+		BlankNode subject = new BlankNodeImpl(subj);
 		IRI predicate = new IRIImpl("pred");
 		long count = graph.getTriples(subject, predicate, null).unordered()
 				.parallel().count();
@@ -85,7 +86,7 @@ public class TestWritingGraph {
 			graphFile.toFile().deleteOnExit();
 		}
 
-		BlankNode subject = new BlankNodeImpl(Optional.of(graph), "subj");
+		BlankNode subject = new BlankNodeImpl(subj);
 		IRI predicate = new IRIImpl("pred");
 		Stream<CharSequence> stream = graph
 				.getTriples(subject, predicate, null).map(Object::toString);

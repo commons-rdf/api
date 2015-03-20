@@ -13,15 +13,12 @@
  */
 package com.github.commonsrdf.simple;
 
-import java.nio.charset.Charset;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
 
 import com.github.commonsrdf.api.BlankNode;
-import com.github.commonsrdf.api.Graph;
 
 /**
  * A simple implementation of BlankNode.
@@ -29,37 +26,40 @@ import com.github.commonsrdf.api.Graph;
  */
 class BlankNodeImpl implements BlankNode {
 
-	private static AtomicLong bnodeCounter = new AtomicLong();
+	private static UUID BLANK_NODE_NS = 
+			UUID.fromString("7482d5ca-5e77-4dfa-92b5-85348e26061c");
+	
 	private final String id;
-	private final Optional<Graph> localScope;
 
 	public BlankNodeImpl() {
-		this(Optional.empty(), "b:" + bnodeCounter.incrementAndGet());
+		this(UUID.randomUUID().toString());
 	}
 
-	public BlankNodeImpl(Optional<Graph> localScope, String id) {
-		this.localScope = Objects.requireNonNull(localScope);
-		if (Objects.requireNonNull(id).isEmpty()) {
-			throw new IllegalArgumentException("Invalid blank node id: " + id);
-			// NOTE: It is valid for the id to not be a valid ntriples bnode id.
-			// See ntriplesString().
-		}
-		this.id = id;
+	public BlankNodeImpl(String id) {
+		this.id = Objects.requireNonNull(id);
 	}
 
 	@Override
-	public String internalIdentifier() {
+	public String identifier() {
 		return id;
+	}
+
+	private static UUID nameUUID(UUID ns, String name) { 
+		byte[] nameBytes = name.getBytes(StandardCharsets.UTF_8); 
+		ByteBuffer buffer = ByteBuffer.allocate(nameBytes.length + 2*Long.BYTES);
+		buffer.putLong(ns.getMostSignificantBits());
+		buffer.putLong(ns.getLeastSignificantBits());
+		buffer.put(nameBytes);
+		return UUID.nameUUIDFromBytes(buffer.array());
 	}
 
 	@Override
 	public String ntriplesString() {
-		if (id.contains(":")) {
-			return "_:u"
-					+ UUID.nameUUIDFromBytes(id
-							.getBytes(StandardCharsets.UTF_8));
+		try {
+			return "_:" + UUID.fromString(id); 
+		} catch (IllegalArgumentException ex) {
+			return "_:" + nameUUID(BLANK_NODE_NS, identifier());
 		}
-		return "_:" + id;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ class BlankNodeImpl implements BlankNode {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(localScope, id);
+		return identifier().hashCode();
 	}
 
 	@Override
@@ -77,28 +77,11 @@ class BlankNodeImpl implements BlankNode {
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
+		if (!(obj instanceof BlankNode)) {
 			return false;
 		}
-		if (!(obj instanceof BlankNodeImpl)) {
-			return false;
-		}
-		BlankNodeImpl other = (BlankNodeImpl) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (localScope == null) {
-			if (other.localScope != null) {
-				return false;
-			}
-		} else if (!localScope.equals(other.localScope)) {
-			return false;
-		}
-		return true;
+		BlankNode other = (BlankNode) obj;
+		return identifier().equals(other.identifier());
 	}
 
 }

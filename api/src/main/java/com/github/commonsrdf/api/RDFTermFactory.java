@@ -14,6 +14,7 @@
 package com.github.commonsrdf.api;
 
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  * Factory for creating RDFTerm and Graph instances.
@@ -41,8 +42,8 @@ public interface RDFTermFactory {
 	 * <p>
 	 * Two BlankNodes created with this method MUST NOT be equal.
 	 * <p>
-	 * If supported, the {@link BlankNode#internalIdentifier()} of the returned
-	 * blank node MUST be an auto-generated value.
+	 * If supported, the {@link BlankNode#identifier()} of the returned
+	 * blank node MUST be a freshly generated UUID.
 	 * 
 	 * @return A new BlankNode
 	 * @throws UnsupportedOperationException
@@ -54,28 +55,37 @@ public interface RDFTermFactory {
 	}
 
 	/**
-	 * Create a blank node for the given internal identifier.
+	 * Create a blank node for the given identifier.
 	 * <p>
-	 * Two BlankNodes created with the same identifier using this method MUST be
-	 * equal if they are in the same local scope (e.g. in the same Graph). See
-	 * the equals contract for {@link BlankNode} for more information.
+	 * The identifier MUST be globally unique. It is RECOMMENDED 
+	 * for the identifier to be a UUID string, e.g. 
+	 * <code>9098f7bd-58fc-32d2-91a2-db6a19aaa46f</code>.
 	 * <p>
-	 * If supported, the {@link BlankNode#internalIdentifier()} of the returned
-	 * blank node MAY be equal to the provided identifier.
+	 * If the identifier is a IRI, it SHOULD be a  
+	 * <a href="http://www.w3.org/TR/rdf11-concepts/#section-skolemization">
+	 * skolem IRI</a>.
+	 * <p> 
+	 * The identifier is <strong>not</strong> a serialization/syntax label, 
+	 * e.g. not <del><code>_:b2</code></del>.
+	 * <p>
+	 * The {@link BlankNode#identifier()} of the returned
+	 * blank node SHOULD be equal to the provided identifier.
+	 * <p>
+	 * Two BlankNodes created with the same identifier using this method 
+	 * MUST be equal.
+	 * <p>
+	 * 
+	 * @see BlankNode#identifier()
+	 * @see BlankNode#equals(Object)
 	 * 
 	 * @param identifier
-	 *            A non-empty String that is unique to this blank node in this
-	 *            scope, and which may be used as the internal identifier for
-	 *            the blank node.
+	 *            A string that uniquely identify the blank node
 	 * @return A BlankNode for the given identifier
-	 * @throws IllegalArgumentException
-	 *             if the identifier is not acceptable, e.g. was empty or
-	 *             contained unsupported characters.
 	 * @throws UnsupportedOperationException
 	 *             If the operation is not supported.
 	 */
 	default BlankNode createBlankNode(String identifier)
-			throws IllegalArgumentException, UnsupportedOperationException {
+			throws UnsupportedOperationException {
 		throw new UnsupportedOperationException(
 				"createBlankNode(String) not supported");
 	}
