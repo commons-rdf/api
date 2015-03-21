@@ -15,7 +15,6 @@ package com.github.commonsrdf.simple;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -49,7 +48,7 @@ class GraphImpl implements Graph {
 
 	@Override
 	public void add(Triple triple) {
-		triples.add(new TripleImpl(Optional.of(this), Objects
+		triples.add(new TripleImpl(Objects
 				.requireNonNull(triple)));
 	}
 

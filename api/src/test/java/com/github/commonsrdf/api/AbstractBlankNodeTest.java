@@ -15,6 +15,8 @@ package com.github.commonsrdf.api;
 
 import static org.junit.Assert.*;
 
+import java.util.UUID;
+
 import org.junit.Test;
 
 /**
@@ -40,11 +42,11 @@ public abstract class AbstractBlankNodeTest {
 	 *            node that is returned.
 	 * @return A new blank node based on the
 	 */
-	protected abstract BlankNode getBlankNode(String identifier);
+	protected abstract BlankNode getBlankNode(UUID identifier);
 
 	/**
 	 * Test method for
-	 * {@link com.github.commonsrdf.api.BlankNode#internalIdentifier()}.
+	 * {@link com.github.commonsrdf.api.BlankNode#identifier()}.
 	 */
 	@Test
 	public final void testInternalIdentifier() {
@@ -55,41 +57,45 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public String internalIdentifier() {
+			public UUID identifier() {
 				return null;
 			}
 		};
 		BlankNode testAutomatic1 = getBlankNode();
 		BlankNode testAutomatic2 = getBlankNode();
-		BlankNode testManual3a = getBlankNode("3");
-		BlankNode testManual3b = getBlankNode("3");
-		BlankNode testManual4 = getBlankNode("4");
+		
+		UUID uuid3 = UUID.fromString("b6415793-b706-4cbe-b406-14bad9c8e66f");
+		UUID uuid4 = UUID.fromString("36638869-2d18-4499-8be4-5b7434f9da45");		
+		
+		BlankNode testManual3a = getBlankNode(uuid3);
+		BlankNode testManual3b = getBlankNode(uuid3);
+		BlankNode testManual4 = getBlankNode(uuid4);
 
 		// Test against our fake stub
-		assertNotEquals(testNull.internalIdentifier(),
-				testAutomatic1.internalIdentifier());
-		assertNotEquals(testAutomatic1.internalIdentifier(),
-				testNull.internalIdentifier());
-		assertNotEquals(testNull.internalIdentifier(),
-				testManual3a.internalIdentifier());
-		assertNotEquals(testManual3a.internalIdentifier(),
-				testNull.internalIdentifier());
+		assertNotEquals(testNull.identifier(),
+				testAutomatic1.identifier());
+		assertNotEquals(testAutomatic1.identifier(),
+				testNull.identifier());
+		assertNotEquals(testNull.identifier(),
+				testManual3a.identifier());
+		assertNotEquals(testManual3a.identifier(),
+				testNull.identifier());
 
 		// Test the two imported instances against each other
-		assertEquals(testAutomatic1.internalIdentifier(),
-				testAutomatic1.internalIdentifier());
-		assertEquals(testAutomatic2.internalIdentifier(),
-				testAutomatic2.internalIdentifier());
-		assertNotEquals(testAutomatic1.internalIdentifier(),
-				testAutomatic2.internalIdentifier());
-		assertNotEquals(testAutomatic2.internalIdentifier(),
-				testAutomatic1.internalIdentifier());
-		assertNotEquals(testAutomatic1.internalIdentifier(),
-				testManual3a.internalIdentifier());
-		assertEquals(testManual3b.internalIdentifier(),
-				testManual3a.internalIdentifier());
-		assertNotEquals(testManual3a.internalIdentifier(),
-				testManual4.internalIdentifier());
+		assertEquals(testAutomatic1.identifier(),
+				testAutomatic1.identifier());
+		assertEquals(testAutomatic2.identifier(),
+				testAutomatic2.identifier());
+		assertNotEquals(testAutomatic1.identifier(),
+				testAutomatic2.identifier());
+		assertNotEquals(testAutomatic2.identifier(),
+				testAutomatic1.identifier());
+		assertNotEquals(testAutomatic1.identifier(),
+				testManual3a.identifier());
+		assertEquals(testManual3b.identifier(),
+				testManual3a.identifier());
+		assertNotEquals(testManual3a.identifier(),
+				testManual4.identifier());
 	}
 
 	/**
@@ -105,15 +111,17 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public String internalIdentifier() {
+			public UUID identifier() {
 				return null;
 			}
 		};
 		BlankNode testAutomatic1 = getBlankNode();
 		BlankNode testAutomatic2 = getBlankNode();
-		BlankNode testManual3a = getBlankNode("3");
-		BlankNode testManual3b = getBlankNode("3");
-		BlankNode testManual4 = getBlankNode("4");
+		UUID uuid3 = UUID.fromString("b6415793-b706-4cbe-b406-14bad9c8e66f");
+		UUID uuid4 = UUID.fromString("36638869-2d18-4499-8be4-5b7434f9da45");		
+		BlankNode testManual3a = getBlankNode(uuid3);
+		BlankNode testManual3b = getBlankNode(uuid3);
+		BlankNode testManual4 = getBlankNode(uuid4);
 
 		// Test against our fake stub
 		assertNotEquals(testNull, testAutomatic1);
@@ -143,15 +151,17 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public String internalIdentifier() {
+			public UUID identifier() {
 				return null;
 			}
 		};
 		BlankNode testAutomatic1 = getBlankNode();
 		BlankNode testAutomatic2 = getBlankNode();
-		BlankNode testManual3a = getBlankNode("3");
-		BlankNode testManual3b = getBlankNode("3");
-		BlankNode testManual4 = getBlankNode("4");
+		UUID uuid3 = UUID.fromString("b6415793-b706-4cbe-b406-14bad9c8e66f");
+		UUID uuid4 = UUID.fromString("36638869-2d18-4499-8be4-5b7434f9da45");		
+		BlankNode testManual3a = getBlankNode(uuid3);
+		BlankNode testManual3b = getBlankNode(uuid3);
+		BlankNode testManual4 = getBlankNode(uuid4);
 
 		// Test against our fake stub
 		assertNotEquals(testNull.hashCode(), testAutomatic1.hashCode());
@@ -182,15 +192,17 @@ public abstract class AbstractBlankNodeTest {
 			}
 
 			@Override
-			public String internalIdentifier() {
+			public UUID identifier() {
 				return null;
 			}
 		};
 		BlankNode testAutomatic1 = getBlankNode();
 		BlankNode testAutomatic2 = getBlankNode();
-		BlankNode testManual3a = getBlankNode("3");
-		BlankNode testManual3b = getBlankNode("3");
-		BlankNode testManual4 = getBlankNode("4");
+		UUID uuid3 = UUID.fromString("b6415793-b706-4cbe-b406-14bad9c8e66f");
+		UUID uuid4 = UUID.fromString("36638869-2d18-4499-8be4-5b7434f9da45");		
+		BlankNode testManual3a = getBlankNode(uuid3);
+		BlankNode testManual3b = getBlankNode(uuid3);
+		BlankNode testManual4 = getBlankNode(uuid4);
 
 		// Test against our fake stub
 		assertNotEquals(testNull.ntriplesString(),

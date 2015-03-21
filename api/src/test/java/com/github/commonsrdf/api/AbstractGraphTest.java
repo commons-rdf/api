@@ -66,8 +66,8 @@ public abstract class AbstractGraphTest {
 		knows = factory.createIRI("http://xmlns.com/foaf/0.1/knows");
 		member = factory.createIRI("http://xmlns.com/foaf/0.1/member");
 		try {
-			org1 = factory.createBlankNode("org1");
-			org2 = factory.createBlankNode("org2");
+			org1 = factory.createBlankNode();
+			org2 = factory.createBlankNode();
 		} catch (UnsupportedOperationException ex) {
 			// leave as null
 		}
@@ -119,7 +119,7 @@ public abstract class AbstractGraphTest {
 				.startsWith(
 						"<http://example.com/alice> <http://xmlns.com/foaf/0.1/name> \"Alice\" ."));
 		assertTrue(graph.toString().endsWith(
-				"_:org2 <http://xmlns.com/foaf/0.1/name> \"A company\" ."));
+				" <http://xmlns.com/foaf/0.1/name> \"A company\" ."));
 
 	}
 

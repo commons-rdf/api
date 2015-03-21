@@ -14,6 +14,7 @@
 package com.github.commonsrdf.api;
 
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  * Factory for creating RDFTerm and Graph instances.
@@ -41,8 +42,8 @@ public interface RDFTermFactory {
 	 * <p>
 	 * Two BlankNodes created with this method MUST NOT be equal.
 	 * <p>
-	 * If supported, the {@link BlankNode#internalIdentifier()} of the returned
-	 * blank node MUST be an auto-generated value.
+	 * If supported, the {@link BlankNode#identifier()} of the returned
+	 * blank node MUST be a freshly generated UUID.
 	 * 
 	 * @return A new BlankNode
 	 * @throws UnsupportedOperationException
@@ -54,30 +55,28 @@ public interface RDFTermFactory {
 	}
 
 	/**
-	 * Create a blank node for the given internal identifier.
+	 * Create a blank node for the given UUID identifier.
 	 * <p>
-	 * Two BlankNodes created with the same identifier using this method MUST be
-	 * equal if they are in the same local scope (e.g. in the same Graph). See
-	 * the equals contract for {@link BlankNode} for more information.
+	 * If supported, the {@link BlankNode#identifier()} of the returned
+	 * blank node MUST be equal to the provided identifier.
 	 * <p>
-	 * If supported, the {@link BlankNode#internalIdentifier()} of the returned
-	 * blank node MAY be equal to the provided identifier.
+	 * Two BlankNodes created with the same identifier using this method 
+	 * MUST be equal.
+	 * <p>
+	 * 
+	 * @see BlankNode#identifier()
+	 * @see BlankNode#equals(Object)
 	 * 
 	 * @param identifier
-	 *            A non-empty String that is unique to this blank node in this
-	 *            scope, and which may be used as the internal identifier for
-	 *            the blank node.
+	 *            A UUID that uniquely identify the blank node
 	 * @return A BlankNode for the given identifier
-	 * @throws IllegalArgumentException
-	 *             if the identifier is not acceptable, e.g. was empty or
-	 *             contained unsupported characters.
 	 * @throws UnsupportedOperationException
 	 *             If the operation is not supported.
 	 */
-	default BlankNode createBlankNode(String identifier)
-			throws IllegalArgumentException, UnsupportedOperationException {
+	default BlankNode createBlankNode(UUID identifier)
+			throws UnsupportedOperationException {
 		throw new UnsupportedOperationException(
-				"createBlankNode(String) not supported");
+				"createBlankNode(UUID) not supported");
 	}
 
 	/**
